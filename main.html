@@ -1,0 +1,26 @@
+<html ng-csp ng-app>
+        <head>
+                <title>FitApp</title>
+                <script src="angular.min.js"></script>
+                <script src="fitapp.js"></script>
+        </head>
+        <body>
+        <div id="settings" ng-controller="setCtl">
+                <label for="actfreq">Activity Frequency:</label>
+                <input id="actfreq" type="text" ng-change="setFreq()" ng-model="visfreq"/>
+                <p>Currently activities will fire every {{visfreq}} minutes. ({{actfreq}})</p>  
+        </div>
+        <div id="countdown" ng-controller="countCtl">Timer: {{timer}}</div>
+        <hr>
+        <div id="startct" ng-controller="timerCtl">
+                <button>Start</button>
+                <button>Stop</button>
+        </div>
+        <hr>
+        <div id="activities" ng-controller="actCtl">
+                <ul>
+                        <li ng-repeat="activity in activities"><a href="#" >edit</a> <a href="#">delete</a> {{activity.name}}</li>
+                </ul>
+        </div>
+        </body>
+</html>
