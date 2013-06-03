@@ -9,5 +9,8 @@
   "repository": "",
   "author": "",
   "license": "ISC",
-  "gitHead": "2d233146c86eaed286a48682e05d5cb5795666ae"
+  "gitHead": "2d233146c86eaed286a48682e05d5cb5795666ae",
+  "devDependencies": {
+    "karma": "~0.8.5"
+  }
 }
