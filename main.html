@@ -1,26 +1,140 @@
-<html ng-csp ng-app>
-        <head>
-                <title>FitApp</title>
-                <script src="angular.min.js"></script>
-                <script src="fitapp.js"></script>
-        </head>
-        <body>
-        <div id="settings" ng-controller="setCtl">
-                <label for="actfreq">Activity Frequency:</label>
-                <input id="actfreq" type="text" ng-change="setFreq()" ng-model="visfreq"/>
-                <p>Currently activities will fire every {{visfreq}} minutes. ({{actfreq}})</p>  
+<html ng-csp ng-app="fitApp">
+  <head>
+    <title>FitApp</title>
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="angular.min.js"></script>
+    <script src="fitapp.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+      body {
+        padding: 10px 50px 0px 50px;
+      }
+      .timer {
+        padding-top: 130px;
+        text-align: center;
+        font-size: 150px;
+        font-family: 'Lato',sans-serif;
+        height: 150px;
+      }
+      #startct {
+        text-align: center;
+      }
+    </style>         
+  </head>
+  <body ng-controller="fitCtl">
+    <div style="text-align: center;">
+           <img src="FitApp.png" width="128"> 
+    </div>
+    
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#countdown" data-toggle="tab">Timer</a></li>
+      <li><a href="#activities" data-toggle="tab">Activities</a></li>
+      <li><a href="#settings" data-toggle="tab">Settings</a></li>
+      <li><a href="#about" data-toggle="tab">About</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="countdown">
+        <div class="well timer">{{timer}}</div>
+        <div id="startct">
+          <button id="maintgl" class="btn-large" ng-click="toggleMain()">Start</button>    
+          <button class="btn-large" ng-click="clearMain()">Reset</button>
         </div>
-        <div id="countdown" ng-controller="countCtl">Timer: {{timer}}</div>
+      </div>
+      <div class="tab-pane" id="settings">
+        <p>Currently activities will fire every {{visfreq}} minutes.</p>
         <hr>
-        <div id="startct" ng-controller="timerCtl">
-                <button>Start</button>
-                <button>Stop</button>
-        </div>
+        <label for="actfreq">Activity Frequency:</label>
+        <input id="actfreq" type="text" ng-change="setFreq()" ng-model="visfreq"/>
+        <label for="actrand">
+          <input type="checkbox" ng-change="setRand()" ng-model="actrand" id="actrand"> Randomize Activities 
+        </label>                
+      </div>
+      <div class="tab-pane" id="activities">                        
+        <a href="#add" class="btn btn-primary" data-toggle="modal">Add Activity</a>
+        <button href="#reset" class="btn btn-danger" ng-click="resetActs()">Use Default Activities</button>
         <hr>
-        <div id="activities" ng-controller="actCtl">
-                <ul>
-                        <li ng-repeat="activity in activities"><a href="#" >edit</a> <a href="#">delete</a> {{activity.name}}</li>
-                </ul>
+        <table class="table .table-striped">
+          <thead>
+            <tr>
+              <th>Edit</th>
+              <th>Delete</th>
+              <th>Name</th>
+              <th>Description <input class="pull-right" id="actSearch" type="text" style="margin-bottom:0px;" ng-model="search" placeholder="search..."></th>
+            </tr>
+          </thead>
+          <tr ng-repeat="activity in activities | filter:search"><td><i href="#edit" data-toggle="modal" ng-click="loadEditAct($index)" class="icon icon-pencil"></i></td><td><i class="icon icon-trash" ng-click="removeAct($index)"></i></td><td>{{activity.name}}</td><td>{{activity.desc}}</td></tr>
+          <tfoot>
+            <tr>
+              <th>Edit</th>
+              <th>Delete</th>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+          </tfoot>
+        </table>
+        <div id="add" class="modal hide">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Add Activity</h3>
+          </div>
+          <div class="modal-body">
+            <label>Activity Name:</label>
+            <input type="text" ng-model="actname">
+            <label>Activity Description:</label>
+            <textarea type="text" ng-model="actdesc"></textarea>
+          </div>
+          <div class="modal-footer">
+            <a href="#" data-dismiss="modal" class="btn">Close</a>
+            <a id="actadd" data-dismiss="modal" class="btn btn-primary" ng-click="addActivity()">Add Activity</a>
+           </div>
+          </div>
+          <div id="edit" class="modal hide">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h3>Edit Activity</h3>
+            </div>
+            <div class="modal-body">
+                <label for="edname">Activity Name:</label>
+                <input id="edname" type="text" ng-model="edactname" />
+                <label for="eddesc">Activity Description:</label>
+                <textarea id="eddesc" ng-model="edactdesc"></textarea>
+                <input ng-model="edactid" type="hidden">
+            </div>
+            <div class="modal-footer">
+                <a href="#" data-dismiss="modal" class="btn">Close</a>
+                <a class="btn" disabled=disabled ng-click="actSave()"id="actedit" data-dismiss="modal">Save Activity</a>
+            </div>
+          </div>       
         </div>
-        </body>
+        <div class="tab-pane" id="about">
+          <h3>About</h3>
+          <p>FitApp is an AngularJS app written to help get myself moving! It is free to use and free to hack on!  The source is available <a href="https://github.com/qbit/FitApp">here</a>.</p>
+          <h3>Planned Features</h3>
+          <ul>
+                  <li>Activity Sharing</li>
+                  <li>Badges</li>
+                  <li>Ability to send tracked activities to fitbit and other fitness trackers</li>
+          </ul>
+           <h3>License</h3>
+           <pre>
+ /*
+ * Copyright (c) 2012-2013 Aaron Bieber aaron at akb.io
+ *
+ * Permission to use, copy, modify, and distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ */
+        </pre>
+      </div>
+    </div>  
+  </body>
 </html>
