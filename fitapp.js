@@ -139,7 +139,7 @@ function fitCtl($scope, $timeout) {
                 },
                 {
                         name: 'Mountain Climbers',
-                        desc: "Do 30 mountain climbers as you can in 45 seconds."
+                        desc: "Do 30 mountain climbers or as many as you can in 45 seconds."
                 },
                 {
                         name: 'Leg Stretches',
