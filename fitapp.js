@@ -147,15 +147,15 @@ function fitCtl($scope, $timeout) {
                 },
                 {
                         name: 'Ham Stretches',
-                        desc: 'Hold your back as straight as possible, then bend over and try to touch your toes. Hold this for 30 seconds.'
+                        desc: 'Hold your back as straight as possible, then bend over and try to touch your toes. Hold this position for 30 seconds.'
                 },
                 {
                         name: 'Calf Flexors',
-                        desc: 'While holding onto a wall or door frame, place your feet flat on the ground and roll up onto the balls of your feet. Stay in the air for 2 or 3 seconds, then let yourself down.  Do as many of these as you can in 60 seconds.'
+                        desc: 'While holding onto a wall or door frame, place your feet flat on the ground and roll up onto the balls of your feet. Stay in the air for 2 or 3 seconds, then let yourself down.  Do this for 60 seconds.'
                 },
                 {
                         name: 'Human Plank',
-                        desc: 'Lay on your side and lift yourself with your elbow. Fully extend your arm and keep your body as stiff as possible. Hold this for 30 seconds then switch sides and do it again!'
+                        desc: 'Lay on your side and lift yourself with your elbow. Fully extend your arm and keep your body as stiff as possible. Hold this for 30 seconds, then switch sides and do it again!'
                 }
         ];
         
