@@ -240,7 +240,7 @@ function notify(title, msg, fn) {
 }
 
 function saveData(item, value) {
-        if (chrome && chrome.storage) {
+        if (typeof chrome !== 'undefined' && chrome.storage) {
                 var o = {};
                 o[item] = value;
                 chrome.storage.sync.set(o);
@@ -251,7 +251,7 @@ function saveData(item, value) {
 }
 
 function loadData($scope, item, fn_name) {
-        if (chrome && chrome.storage) {
+        if (typeof chrome !== 'undefined' && chrome.storage) {
                 loadFromSync($scope, item, fn_name);
         } else {
                 loadFromLocal($scope, item, fn_name);
