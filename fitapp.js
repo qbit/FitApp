@@ -215,7 +215,7 @@ function notify(title, msg, fn) {
         var m;
         fn = fn || function() {};
         ding.play();
-        if (webkitNotifications && webkitNotifications.createNotification) {
+        if (typeof webkitNotifications !== 'undefined' && webkitNotifications.createNotification) {
                 
                 if (window.webkitNotifications.checkPermission() !== 0) {
                         window.webkitNotifications.requestPermission();
@@ -236,6 +236,7 @@ function notify(title, msg, fn) {
                 m.show();
         } else {
                 alert(title + "\n" + msg);
+		fn.call();
         }
 }
 
