@@ -5,7 +5,7 @@
     <script src="bootstrap.min.js"></script>
     <script src="angular.min.js"></script>
     <script src="fitapp.js"></script>
-    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <style>
       body {
         padding: 10px 50px 0px 50px;
@@ -54,22 +54,35 @@
         <a href="#add" class="btn btn-primary" data-toggle="modal">Add Activity</a>
         <button href="#reset" class="btn btn-danger" ng-click="resetActs()">Use Default Activities</button>
         <hr>
+      <input class="" id="actSearch" type="text" style="margin-bottom:0px;" ng-model="search" placeholder="search...">
         <table class="table .table-striped">
           <thead>
             <tr>
               <th>Edit</th>
               <th>Delete</th>
               <th>Name</th>
-              <th>Description <input class="pull-right" id="actSearch" type="text" style="margin-bottom:0px;" ng-model="search" placeholder="search..."></th>
+              <th>Description</th>
+	      <th>Times Activity Done</th>
             </tr>
           </thead>
-          <tr ng-repeat="activity in activities | filter:search"><td><i href="#edit" data-toggle="modal" ng-click="loadEditAct($index)" class="icon icon-pencil"></i></td><td><i class="icon icon-trash" ng-click="removeAct($index)"></i></td><td>{{activity.name}}</td><td>{{activity.desc}}</td></tr>
+		<tr ng-repeat="activity in activities | filter:search">
+			<td>
+				<i href="#edit" data-toggle="modal" ng-click="loadEditAct($index)" class="icon icon-pencil"></i>
+			</td>
+			<td>
+				<i class="icon icon-trash" ng-click="removeAct($index)"></i>
+			</td>
+			<td>{{activity.name}}</td>
+			<td>{{activity.desc}}</td>
+			<td>{{activity.count || 0}}</td>
+		</tr>
           <tfoot>
             <tr>
               <th>Edit</th>
               <th>Delete</th>
               <th>Name</th>
               <th>Description</th>
+              <th>Times Activity Done</th>
             </tr>
           </tfoot>
         </table>

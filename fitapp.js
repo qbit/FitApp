@@ -53,6 +53,12 @@ function fitCtl($scope, $timeout) {
 
                         notify(activity.name, activity.desc, function(){
                                 $scope.mainCounter = 0;
+				if (!activity.count) {
+					activity.count = 0;
+				}
+				activity.count++;
+
+				saveData('activities', $scope.activities);
                                 mainTimeout = $timeout($scope.mainOnTimeout,1000);
                         });                       
                 } else {
@@ -86,7 +92,7 @@ function fitCtl($scope, $timeout) {
                 if (!$scope.actname && !$scope.actdesc) {
                         return;
                 } else {
-                        $scope.activities.push({name: $scope.actname, desc: $scope.actdesc});
+                        $scope.activities.push({name: $scope.actname, desc: $scope.actdesc, count: 0});
                         saveData('activities', $scope.activities);
                 
                         $scope.actname = '';
@@ -127,35 +133,43 @@ function fitCtl($scope, $timeout) {
         var defAct = [
                 { 
                         name: "Pushups",
-                        desc: "Do 15 pushups!"
+                        desc: "Do 15 pushups!",
+			count: 0
                 },
                 {
                         name: "Jumping Jacks",
-                        desc: "Do as many jumping jacks as you can in 60 seconds."
+			desc: "Do as many jumping jacks as you can in 60 seconds.",
+			count: 0
                 },
                 {
                         name: 'Wrist Stretches',
-                        desc: "Put your palms together and firmly press down until you feel stretching in your wrists."
+			desc: "Put your palms together and firmly press down until you feel stretching in your wrists.",
+			count: 0
                 },
                 {
                         name: 'Mountain Climbers',
-                        desc: "Do 30 mountain climbers or as many as you can in 45 seconds."
+			desc: "Do 30 mountain climbers or as many as you can in 45 seconds.",
+			count: 0
                 },
                 {
                         name: 'Leg Stretches',
-                        desc: 'While sitting in your chair, extend a leg out in front of you. Flex your toes back as far as you can until you feel a stretch. Hold for 20 seconds and repeat with other leg.'
+			desc: 'While sitting in your chair, extend a leg out in front of you. Flex your toes back as far as you can until you feel a stretch. Hold for 20 seconds and repeat with other leg.',
+			count: 0
                 },
                 {
                         name: 'Ham Stretches',
-                        desc: 'Hold your back as straight as possible, then bend over and try to touch your toes. Hold this position for 30 seconds.'
+			desc: 'Hold your back as straight as possible, then bend over and try to touch your toes. Hold this position for 30 seconds.',
+			count: 0
                 },
                 {
                         name: 'Calf Flexors',
-                        desc: 'While holding onto a wall or door frame, place your feet flat on the ground and roll up onto the balls of your feet. Stay in the air for 2 or 3 seconds, then let yourself down.  Do this for 60 seconds.'
+			desc: 'While holding onto a wall or door frame, place your feet flat on the ground and roll up onto the balls of your feet. Stay in the air for 2 or 3 seconds, then let yourself down.  Do this for 60 seconds.',
+			count: 0
                 },
                 {
                         name: 'Human Plank',
-                        desc: 'Lay on your side and lift yourself with your elbow. Fully extend your arm and keep your body as stiff as possible. Hold this for 30 seconds, then switch sides and do it again!'
+			desc: 'Lay on your side and lift yourself with your elbow. Fully extend your arm and keep your body as stiff as possible. Hold this for 30 seconds, then switch sides and do it again!',
+			count: 0
                 }
         ];
         
