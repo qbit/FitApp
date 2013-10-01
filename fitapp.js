@@ -22,7 +22,9 @@ function pretty(t){
 }
 
 function fitCtl($scope, $timeout) {
-        var mainTimeout;
+        var mainTimeout, tout;
+
+	tout = 990;
         
         $scope.mainCounter = 0;
         $scope.timer = '00:00:00';
@@ -35,7 +37,7 @@ function fitCtl($scope, $timeout) {
                 $scope.mainCounter++;
                 $scope.timer = pretty($scope.actfreq - $scope.mainCounter * 1000).join(':');
                 
-                if (($scope.mainCounter * 1000) === $scope.actfreq) {
+                if (($scope.mainCounter * tout) === $scope.actfreq) {
                         
                         $timeout.cancel(mainTimeout);
                         
@@ -59,10 +61,10 @@ function fitCtl($scope, $timeout) {
 				activity.count++;
 
 				saveData('activities', $scope.activities);
-                                mainTimeout = $timeout($scope.mainOnTimeout,1000);
+                                mainTimeout = $timeout($scope.mainOnTimeout,tout);
                         });                       
                 } else {
-                       mainTimeout = $timeout($scope.mainOnTimeout,1000); 
+                       mainTimeout = $timeout($scope.mainOnTimeout,tout); 
                 }
         }
         
@@ -73,7 +75,7 @@ function fitCtl($scope, $timeout) {
                         $timeout.cancel(mainTimeout);
                         togg.html('Start');
                 } else {
-                       mainTimeout = $timeout($scope.mainOnTimeout,1000);
+                       mainTimeout = $timeout($scope.mainOnTimeout,tout);
                        togg.html('Stop');
                 }
                 
